@@ -1,3 +1,4 @@
+package Sydn;
 //Fungsi ini dibuat oleh Muhammad Fachri Rasyidi
 
 import java.math.BigDecimal;
@@ -11,8 +12,10 @@ import java.util.regex.Pattern;
 
 public class Mathf {
     public static boolean modedebug = false;
-
-    public static double eval(String str, boolean precise) {
+    public static double eval(String str) {
+        return eval(str, Precise.NORMAL);
+    }
+    public static double eval(String str, Precise es) {
         ArrayList<String> doub = new ArrayList<String>(Arrays.asList(splitAnStringtoArrayList(str)));
         if (modedebug) System.out.println(doub);
         int jumlahkurung = 0;
@@ -43,12 +46,12 @@ public class Mathf {
                         System.out.println("Test "+index[0]+" "+index[1]);
                     }
 
-                    penjumlahan(doub, index[0], index[1], true, precise);
+                    penjumlahan(doub, index[0], index[1], true, es);
                 }
             }
         }
         menghapuskurung(doub);
-        penjumlahan(doub, 0, doub.size(), false, precise);
+        penjumlahan(doub, 0, doub.size(), false, es);
         if (modedebug)System.out.println(doub);
 
         return Double.parseDouble(doub.get(0));
@@ -60,7 +63,7 @@ public class Mathf {
             }
         }
     }
-    private static void penjumlahan(ArrayList<String> as, int awal, int akhir, boolean kurung, boolean precise) {
+    private static void penjumlahan(ArrayList<String> as, int awal, int akhir, boolean kurung, Precise es) {
         String[] sim = {"|","^","/","*","-","+"};
         //for (int z = 0; z < 2; z++) {;
         for (String ant : sim) {
@@ -70,7 +73,7 @@ public class Mathf {
                         if (as.get(i).equals(ant)) {
                             if (modedebug) System.out.println(as);
                             if (modedebug) System.out.println(awal + " " + akhir);
-                            if (!precise) {
+                            if (es == Precise.NORMAL) {
                                 double temp = hasil(Double.parseDouble(as.get(i - 1)), Double.parseDouble(as.get(i + 1)), ant);
                                 penjum2(as, i, temp);
                             } else  {
