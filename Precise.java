@@ -1,4 +1,3 @@
-package Sydn;
 
 public enum Precise {
         PRECISE(100),
