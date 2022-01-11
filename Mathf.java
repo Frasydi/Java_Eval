@@ -1,4 +1,4 @@
-package Sydn;
+
 //Fungsi ini dibuat oleh Muhammad Fachri Rasyidi
 
 import java.math.BigDecimal;
